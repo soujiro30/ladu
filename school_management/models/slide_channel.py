@@ -4,9 +4,7 @@ from odoo import models, api, fields
 class SlideChannelInherited(models.Model):
     _inherit = 'slide.channel'
 
-    teacher_id = fields.Many2one(comodel_name="school.teacher", string="Teacher", required=False, )
     state = fields.Selection(string="Status", selection=[('open', 'Open Class'), ('close', 'Close'), ], required=False, )
-    grade_ids = fields.One2many(comodel_name="slide.channel.grade", inverse_name="slide_channel_id", string="Grade", required=False, )
 
     @api.model
     def create(self, values):
@@ -24,9 +22,16 @@ class SlideChannelInherited(models.Model):
         return res
 
 
-class SlideChannelGrade(models.Model):
-    _name = 'slide.channel.grade'
-    _description = 'Grade Slide Channel'
+class SlideChannelTagGroupInherited(models.Model):
+    _inherit = 'slide.channel.tag'
 
-    grade_id = fields.Many2one(comodel_name="school.grade", string="Grade", required=False, )
-    slide_channel_id = fields.Many2one(comodel_name="slide.channel", string="Slide Channel", required=False, )
+    @api.depends('description', 'group_id')
+    def compute_name(self):
+        for record in self:
+            if record.group_id and record.description:
+                name = "[%s] %s" % (record.group_id.name, record.description)
+                record.update({'name': name})
+
+    name = fields.Char(string='Name', compute='compute_name', store=True)
+    description = fields.Char(string="Description", required=False, )
+

@@ -19,18 +19,18 @@
                   action="school_my_student_action_view" sequence="2"
                   groups="school_management.group_school_teacher"/>
 
-        <!--Courses-->
-        <menuitem id="menu_main_school_slide_channel_id" name="Courses" parent="main_learning_management_menu"
+        <!--eLearning-->
+        <menuitem id="menu_main_school_slide_channel_id" name="eLearning" parent="main_learning_management_menu"
                   sequence="3"
                   groups="school_management.group_school_teacher,school_management.group_school_principal,school_management.group_school_access_right"/>
 
         <!--All Courses-->
-        <menuitem id="menu_all_school_slide_channel_id" name="All Courses" parent="menu_main_school_slide_channel_id"
+        <menuitem id="menu_all_school_slide_channel_id" name="All eLearning" parent="menu_main_school_slide_channel_id"
                   action="website_slides.slide_channel_action_overview" sequence="1"
                   groups="school_management.group_school_principal,school_management.group_school_access_right"/>
 
         <!--My Courses-->
-        <menuitem id="menu_my_school_slide_channel_id" name="My Courses" parent="menu_main_school_slide_channel_id"
+        <menuitem id="menu_my_school_slide_channel_id" name="My eLearning" parent="menu_main_school_slide_channel_id"
                   action="my_slide_channel_action_view" sequence="2"
                   groups="school_management.group_school_teacher"/>
 
@@ -50,7 +50,7 @@
         <!--Teacher-->
         <menuitem id="menu_school_teacher_id" name="Teachers" parent="main_learning_management_menu"
                   action="school_teacher_action_view" sequence="2"
-                  groups="school_management.group_school_teacher,school_management.group_school_principal,school_management.group_school_access_right"/>
+                  groups="school_management.group_school_principal,school_management.group_school_access_right"/>
 
         <!-- Configuration -->
         <menuitem id="menu_learning_management_configuration_id" name="Configuration"
@@ -67,9 +67,9 @@
                   action="school_year_action_view" sequence="2"
                   groups="school_management.group_school_principal,school_management.group_school_access_right"/>
 
-        <!--Grade Year-->
-        <menuitem id="menu_school_grade_id" name="Grade Level" parent="menu_learning_management_configuration_id"
-                  action="school_grade_action_view" sequence="3"
+        <!--Grade Level-->
+        <menuitem id="menu_school_grade_id" name="Grade Level &amp; Section" parent="menu_learning_management_configuration_id"
+                  action="website_slides.slide_channel_tag_group_action" sequence="3"
                   groups="school_management.group_school_principal,school_management.group_school_access_right"/>
 
         <!--Position-->

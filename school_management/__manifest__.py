@@ -26,11 +26,13 @@
     'data': [
         'security/school_management_security.xml',
         'security/ir.model.access.csv',
+        'wizard/student_access_views.xml',
+        'wizard/teacher_access_views.xml',
         'views/school_views.xml',
         'views/student_views.xml',
         'views/teacher_views.xml',
         'views/slide_channel_views.xml',
-        'views/res_users_views.xml',
         'views/menuitem_views.xml',
+
     ],
 }

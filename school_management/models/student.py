@@ -46,7 +46,9 @@ class SchoolStudent(models.Model):
     phone = fields.Char(string="Phone Number", required=False, )
     teacher_id = fields.Many2one(comodel_name="school.teacher", string="Teacher Adviser", required=False, default=get_default_teacher)
     school_year_id = fields.Many2one(comodel_name="school.year", string="School Year", required=False, )
-    grade_id = fields.Many2one(comodel_name="school.grade", string="Current Grade", required=False, )
+    grade_id = fields.Many2one(comodel_name="slide.channel.tag", string="Current Grade/Section", required=False, )
+    year_level_id = fields.Many2one(comodel_name="slide.channel.tag.group", string="Current Level",
+                                    required=False, related='grade_id.group_id', store=True)
     user_id = fields.Many2one('res.users', 'User ID', ondelete="cascade",
                               required=False)
     gender = fields.Selection(string="Gender", selection=[('male', 'Male'), ('female', 'Female'), ], required=False, )
@@ -70,46 +72,39 @@ class SchoolStudent(models.Model):
     def onchange_name(self):
 
         name = ''
-        sep = ', '
+        period = '.'
+        fname = ''
+        lname = ''
+        mname = ''
         if self.last_name:
             lname = self.last_name.title().strip()
-        else:
-            lname = ''
+            name = '%s' % lname
 
-        if lname:
-            name = '%s%s' % (lname, sep)
-
-        if self.first_name:
+        if self.first_name and self.last_name:
             fname = self.first_name.title().strip()
-        else:
-            fname = ''
+            lname = self.last_name.title().strip()
+            name = '%s %s' % (fname, lname)
 
-        if fname:
-            name = '%s%s%s' % (name, ' ', fname)
-
-        if self.suffix:
-            suffix = self._get_suffix(self.suffix)
-        else:
-            suffix = ''
-
-        if suffix:
-            name = '%s%s%s' % (name, ' ', suffix)
-
-        if self.middle_name:
+        if self.first_name and self.last_name and self.middle_name:
+            fname = self.first_name.title().strip()
+            lname = self.last_name.title().strip()
             mname = self.middle_name.title().strip()
-        else:
-            mname = ''
+            name = '%s %s%s %s' % (fname, mname[:1], period, lname)
 
-        if mname:
-            name = '%s%s%s' % (name, ' ', mname)
+        if self.first_name and self.last_name and self.middle_name and self.suffix:
+            fname = self.first_name.title().strip()
+            lname = self.last_name.title().strip()
+            mname = self.middle_name.title().strip()
+            suffix = self._get_suffix(self.suffix)
+            name = '%s %s%s %s %s' % (fname, mname[:1], period, lname, suffix)
 
-        # if self.name == '':
-        #     self.name = ''
-        # else:
-        #     self.name = "%s%s %s %s %s" % (lname.title().strip(), fname.title().strip(),, mname.title().strip())
+        if self.first_name and self.last_name and self.suffix and not self.middle_name:
+            fname = self.first_name.title().strip()
+            lname = self.last_name.title().strip()
+            suffix = self._get_suffix(self.suffix)
+            name = '%s %s %s' % (fname,  lname, suffix)
 
         self.name = name
-
         self.first_name = fname.title().strip()
         self.middle_name = mname.title().strip()
         self.last_name = lname.title().strip()

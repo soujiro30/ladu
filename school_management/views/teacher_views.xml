@@ -36,9 +36,9 @@
                         </group>
                         <group>
                             <group string="Other Information">
-                                <field name="gender"/>
-                                <field name="birthday"/>
-                                <field name="marital"/>
+                                <field name="gender" required="1"/>
+                                <field name="birthday" required="1"/>
+                                <field name="marital" required="1"/>
                             </group>
                             <group string="Complete Address">
                                 <field name="complete_address" nolabel="1"/>
@@ -93,5 +93,14 @@
               </p>
             </field>
         </record>
+
+        <act_window id="school_teacher_access_action"
+                    name="Teacher Access Portal"
+                    binding_model="school.teacher"
+                    res_model="school.teacher.access"
+                    binding_views="list"
+                    view_mode="form"
+                    target="new"
+                    context="{'default_res_ids': active_ids}"/>
     </data>
 </odoo>

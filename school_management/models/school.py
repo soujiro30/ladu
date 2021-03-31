@@ -11,6 +11,7 @@ class SchoolYear(models.Model):
     name = fields.Char(string="School Year", required=False)
     date_start = fields.Date(string="Date Start", required=False, )
     date_stop = fields.Date(string="Date Stop", required=False, )
+    default = fields.Boolean(string="Default", default=False)
 
     @api.onchange('date_start', 'date_stop')
     def _onchange_date_start_date_stop(self):
@@ -18,6 +19,24 @@ class SchoolYear(models.Model):
             start = (self.date_start).strftime('%Y')
             end = (self.date_stop).strftime('%Y')
             self.name = 'S.Y. %s-%s' % (start, end)
+
+    def set_as_default(self):
+        self.default = True
+        for record in self.search([('id', '!=', self.id)]):
+            if record:
+                record.write({'default': False})
+        model_obj = self.env['ir.model.data']
+        data_id = model_obj._get_id('school_management', 'school_year_tree_view')
+        view_id = model_obj.sudo().browse(data_id).res_id
+        return {'type': 'ir.actions.client',
+                'tag': 'reload',
+                'name': _('SSS Matrix'),
+                'res_model': 'hr.sss.matrix',
+                'view_type': 'tree',
+                'view_mode': 'tree',
+                'view_id': view_id,
+                'target': 'current',
+                'nodestroy': True}
 
 
 class School(models.Model):
@@ -38,16 +57,6 @@ class School(models.Model):
             result = self.search([('id', '!=', record.id), ('school_id', '=', record.school_id)])
             if result:
                 raise ValidationError(_("Identification Number already exists!"))
-
-
-class SchoolGrade(models.Model):
-    _name = 'school.grade'
-    _description = 'Student Information'
-    _order = 'sequence'
-
-    name = fields.Char(string="Grade Name", required=False, )
-    sequence = fields.Integer("Sequence", default=10, help="Gives the sequence order when displaying a list of stages.")
-    fold = fields.Boolean("Folded in Kanban", help="This stage is folded in the kanban view when there are no records in that stage to display.")
 
 
 class SchoolPosition(models.Model):

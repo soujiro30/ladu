@@ -8,6 +8,8 @@
                     <field name="name" invisible="1"/>
                     <field name="date_start" required="1"/>
                     <field name="date_stop" required="1"/>
+                    <field name="default" invisible="1"/>
+                    <button name="set_as_default" string="Set as Default" class="oe_highlight" type="object" attrs="{'invisible': [('default','=', True)]}"/>
                 </tree>
             </field>
         </record>
@@ -44,14 +46,14 @@
                     <sheet>
                         <div class="oe_title">
                             <label for="name" string="School Name" placeholder="Type the school name"/>
-                            <h2><field name="name"/></h2>
+                            <h2><field name="name" required="1"/></h2>
                         </div>
                         <group>
                             <group>
-                                <field name="school_id"/>
-                                <field name="abbreviation"/>
-                                <field name="principal"/>
-                                <field name="complete_address"/>
+                                <field name="school_id" required="1"/>
+                                <field name="abbreviation" required="1"/>
+                                <field name="principal" required="1"/>
+                                <field name="complete_address" required="1"/>
                             </group>
                         </group>
                         <notebook>
@@ -107,42 +109,6 @@
                 Add School Information Here!
               </p><p>
                 <!-- More details about what a user can do with this object will be OK -->
-              </p>
-            </field>
-        </record>
-
-        <record id="school_grade_tree_view" model="ir.ui.view">
-            <field name="name">school.grade.tree</field>
-            <field name="model">school.grade</field>
-            <field name="arch" type="xml">
-                <tree string="Grade Level" editable="top">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name" required="1"/>
-                    <field name="fold"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="school_grade_filter_view" model="ir.ui.view">
-           <field name="name">school.grade.filter</field>
-           <field name="model">school.grade</field>
-            <field name="arch" type="xml">
-                <search string="Grade Level">
-                    <field name="name"/>
-                </search>
-           </field>
-        </record>
-
-        <record id="school_grade_action_view" model="ir.actions.act_window">
-            <field name="name">Grade Level</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">school.grade</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
-                Create your own School Grade here!
-              </p><p>
-                Example of a school grade here : Grade 8
               </p>
             </field>
         </record>

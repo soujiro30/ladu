@@ -22,15 +22,17 @@
                         </div>
                         <group>
                             <group string="Personal Information">
-                                <field name="last_name"/>
-                                <field name="first_name"/>
+                                <field name="last_name" required="1"/>
+                                <field name="first_name" required="1"/>
                                 <field name="middle_name"/>
                                 <field name="suffix"/>
-                                <field name="phone"/>
+                                <field name="phone" required="1"/>
                             </group>
                             <group string="School and Portal Information">
                                 <field name="teacher_id" options="{'no_create':True}" required="1"/>
                                 <field name="grade_id" options="{'no_create':True}" required="1"/>
+                                <field name="year_level_id" options="{'no_create':True}" invisible="1"/>
+
                                 <field name="school_year_id" options="{'no_create':True}" required="1"/>
                                 <field name="user_id" options="{'no_create':True}" invisible="1"/>
                             </group>
@@ -109,5 +111,23 @@
               </p>
             </field>
         </record>
+
+        <act_window id="school_student_access_action"
+                    name="Student Access Portal"
+                    binding_model="school.student"
+                    res_model="school.student.access"
+                    binding_views="list"
+                    view_mode="form"
+                    target="new"
+                    context="{'default_res_ids': active_ids}"/>
+
+        <act_window id="school_student_change_level_action"
+                    name="Change Level"
+                    binding_model="school.student"
+                    res_model="school.student.change.level"
+                    binding_views="list"
+                    view_mode="form"
+                    target="new"
+                    context="{'default_res_ids': active_ids}"/>
     </data>
 </odoo>

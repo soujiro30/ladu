@@ -63,46 +63,39 @@ class SchoolTeacher(models.Model):
     def onchange_name(self):
 
         name = ''
-        sep = ', '
+        period = '.'
+        fname = ''
+        lname = ''
+        mname = ''
         if self.last_name:
             lname = self.last_name.title().strip()
-        else:
-            lname = ''
+            name = '%s' % lname
 
-        if lname:
-            name = '%s%s' % (lname, sep)
-
-        if self.first_name:
+        if self.first_name and self.last_name:
             fname = self.first_name.title().strip()
-        else:
-            fname = ''
+            lname = self.last_name.title().strip()
+            name = '%s %s' % (fname, lname)
 
-        if fname:
-            name = '%s%s%s' % (name, ' ', fname)
-
-        if self.suffix:
-            suffix = self._get_suffix(self.suffix)
-        else:
-            suffix = ''
-
-        if suffix:
-            name = '%s%s%s' % (name, ' ', suffix)
-
-        if self.middle_name:
+        if self.first_name and self.last_name and self.middle_name:
+            fname = self.first_name.title().strip()
+            lname = self.last_name.title().strip()
             mname = self.middle_name.title().strip()
-        else:
-            mname = ''
+            name = '%s %s%s %s' % (fname, mname[:1], period, lname)
 
-        if mname:
-            name = '%s%s%s' % (name, ' ', mname)
+        if self.first_name and self.last_name and self.middle_name and self.suffix:
+            fname = self.first_name.title().strip()
+            lname = self.last_name.title().strip()
+            mname = self.middle_name.title().strip()
+            suffix = self._get_suffix(self.suffix)
+            name = '%s %s%s %s %s' % (fname, mname[:1], period, lname, suffix)
 
-        # if self.name == '':
-        #     self.name = ''
-        # else:
-        #     self.name = "%s%s %s %s %s" % (lname.title().strip(), fname.title().strip(),, mname.title().strip())
+        if self.first_name and self.last_name and self.suffix and not self.middle_name:
+            fname = self.first_name.title().strip()
+            lname = self.last_name.title().strip()
+            suffix = self._get_suffix(self.suffix)
+            name = '%s %s %s' % (fname, lname, suffix)
 
         self.name = name
-
         self.first_name = fname.title().strip()
         self.middle_name = mname.title().strip()
         self.last_name = lname.title().strip()

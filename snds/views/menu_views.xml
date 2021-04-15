@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <menuitem id="main_snds_menu"
+                  name="SNDS"
+                  web_icon="snds,static/description/icon.png"
+                  sequence="1"
+                  groups="snds.group_snds_contributor,snds.group_snds_user"/>
+
+<!--        NEEDS for Contributor-->
+        <menuitem id="menu_snds_main_needs_readonly_id" name="Needs" parent="main_snds_menu"
+                  sequence="1" action="school_needs_action_view_readonly"
+                  groups="snds.group_snds_contributor"/>
+
+<!--        NEEDS for USER-->
+        <menuitem id="menu_snds_main_needs_id" name="Needs" parent="main_snds_menu"
+                  sequence="2" action="school_needs_action_view"
+                  groups="snds.group_snds_user"/>
+
+<!--        SCHOOLS for CONTRIBUTOR-->
+        <menuitem id="menu_snds_find_school_id" name="Find a School" parent="main_snds_menu"
+                  sequence="3" groups="snds.group_snds_contributor"/>
+
+        <menuitem id="menu_snds_all_school_id" name="All" parent="menu_snds_find_school_id"
+                  action="school_school_readonly_action_view" sequence="1"
+                  groups="snds.group_snds_contributor"/>
+
+        <menuitem id="menu_snds_group_by_district_school_id" name="By District" parent="menu_snds_find_school_id"
+                  action="school_school_group_by_district_action_view" sequence="2"
+                  groups="snds.group_snds_contributor"/>
+
+<!--        SCHOOLS for USER-->
+        <menuitem id="menu_snds_school_id" name="Schools" parent="main_snds_menu"
+                  sequence="4" action="school_school_action_view" groups="snds.group_snds_user"/>
+
+<!--        MY CONTRIBUTION-->
+        <menuitem id="menu_snds_my_contribution" name="My Donations"
+                  parent="main_snds_menu" action="stakeholder_project_action_views" sequence="5"
+                  groups="snds.group_snds_contributor"/>
+
+        <!-- ALL Donations for User Monitoring -->
+        <menuitem id="menu_snds_donations" parent="main_snds_menu"
+                  action="stakeholder_project_action_view" sequence="6"
+                  groups="snds.group_snds_user"/>
+
+<!--        ALL RESOURCES-->
+        <menuitem id="menu_snds_all_resources" name="All Resources" parent="main_snds_menu" action="stakeholder_project_all_action_view" sequence="7"/>
+<!--        Configuration-->
+        <menuitem id="menu_snds_configuration" name="Configuration" parent="main_snds_menu"
+                  sequence="99" groups="snds.group_snds_user"/>
+
+<!--        Position-->
+        <menuitem id="menu_snds_school_region_id" name="Region" parent="menu_snds_configuration"
+                  sequence="1" action="res_region_action_view" groups="snds.group_snds_user"/>
+
+        <menuitem id="menu_snds_school_district_id" name="District" parent="menu_snds_configuration"
+                  sequence="2" action="school_district_action_view" groups="snds.group_snds_user"/>
+
+        <menuitem id="menu_snds_school_position_id" name="Position" parent="menu_snds_configuration"
+                  sequence="3" action="school_position_action_view" groups="snds.group_snds_user"/>
+
+        <menuitem id="menu_snds_school_product_id" name="Product/Item" parent="menu_snds_configuration"
+                  sequence="4" action="school_product_action_view" groups="snds.group_snds_user"/>
+    </data>
+</odoo>

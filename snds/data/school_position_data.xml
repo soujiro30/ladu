@@ -1,0 +1,137 @@
+<odoo>
+    <data noupdate="1">
+        <record id="school_position_1" model="school.position">
+            <field name="name">Teacher I</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="school_position_2" model="school.position">
+            <field name="name">Teacher II</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="school_position_3" model="school.position">
+            <field name="name">Teacher III</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="school_position_4" model="school.position">
+            <field name="name">Special Education Teacher I</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="school_position_5" model="school.position">
+            <field name="name">Special Education Teacher II</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="school_position_6" model="school.position">
+            <field name="name">Special Education Teacher III</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="school_position_7" model="school.position">
+            <field name="name">Special Education Teacher IV</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="school_position_8" model="school.position">
+            <field name="name">Special Science Teacher I</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="school_position_9" model="school.position">
+            <field name="name">Special Science Teacher II</field>
+            <field name="sequence">9</field>
+        </record>
+        <record id="school_position_10" model="school.position">
+            <field name="name">Special Science Teacher III</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="school_position_11" model="school.position">
+            <field name="name">Special Science Teacher IV</field>
+            <field name="sequence">11</field>
+        </record>
+
+        <record id="school_position_12" model="school.position">
+            <field name="name">Special Science Teacher V</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <record id="school_position_13" model="school.position">
+            <field name="name">Special Science Teacher V</field>
+            <field name="sequence">13</field>
+        </record>
+
+        <record id="school_position_14" model="school.position">
+            <field name="name">Head Teacher I</field>
+            <field name="sequence">14</field>
+        </record>
+
+        <record id="school_position_15" model="school.position">
+            <field name="name">Head Teacher II</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <record id="school_position_16" model="school.position">
+            <field name="name">Head Teacher III</field>
+            <field name="sequence">16</field>
+        </record>
+
+        <record id="school_position_17" model="school.position">
+            <field name="name">Head Teacher IV</field>
+            <field name="sequence">17</field>
+        </record>
+
+        <record id="school_position_18" model="school.position">
+            <field name="name">Head Teacher V</field>
+            <field name="sequence">18</field>
+        </record>
+
+        <record id="school_position_19" model="school.position">
+            <field name="name">Head Teacher VI</field>
+            <field name="sequence">19</field>
+        </record>
+
+        <record id="school_position_20" model="school.position">
+            <field name="name">Master Teacher I</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="school_position_21" model="school.position">
+            <field name="name">Master Teacher II</field>
+            <field name="sequence">21</field>
+        </record>
+
+        <record id="school_position_22" model="school.position">
+            <field name="name">OIC School Principal I</field>
+            <field name="sequence">22</field>
+        </record>
+
+        <record id="school_position_23" model="school.position">
+            <field name="name">OIC School Principal II</field>
+            <field name="sequence">23</field>
+        </record>
+
+        <record id="school_position_24" model="school.position">
+            <field name="name">School Principal I</field>
+            <field name="sequence">24</field>
+        </record>
+
+        <record id="school_position_25" model="school.position">
+            <field name="name">School Principal II</field>
+            <field name="sequence">25</field>
+        </record>
+
+        <record id="school_position_26" model="school.position">
+            <field name="name">School Principal III</field>
+            <field name="sequence">26</field>
+        </record>
+
+        <record id="school_position_27" model="school.position">
+            <field name="name">School Principal IV</field>
+            <field name="sequence">27</field>
+        </record>
+    </data>
+</odoo>

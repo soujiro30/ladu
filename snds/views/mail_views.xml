@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record model="ir.ui.menu" id="mail.menu_root_discuss">
+            <field name="sequence">3</field>
+        </record>
+    </data>
+</odoo>

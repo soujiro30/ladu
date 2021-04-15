@@ -1,0 +1,394 @@
+<odoo>
+    <data>
+        <!--        Product Category-->
+        <record id="school_product_category_tree_view" model="ir.ui.view">
+            <field name="name">school.product.category.tree</field>
+            <field name="model">school.product.category</field>
+            <field name="arch" type="xml">
+                <tree string="Product Category" editable="top">
+                    <field name="name" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_product_category_filter_view" model="ir.ui.view">
+           <field name="name">school.product.category.filter</field>
+           <field name="model">school.product.category</field>
+            <field name="arch" type="xml">
+                <search string="Product Category">
+                    <field name="name"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="school_product_category_action_view" model="ir.actions.act_window">
+            <field name="name">Product Category</field>
+            <field name="res_model">school.product.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Product Category here!
+              </p><p>
+              </p>
+            </field>
+        </record>
+
+        <!--        Product-->
+        <record id="school_product_form_view" model="ir.ui.view">
+            <field name="name">school.product.form</field>
+            <field name="model">school.product</field>
+            <field name="arch" type="xml">
+                <form string="Product/Item">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code" invisible="1"/>
+                                <field name="name" required="1"/>
+                                <field name="category_id" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="school_product_tree_view" model="ir.ui.view">
+            <field name="name">school.product.tree</field>
+            <field name="model">school.product</field>
+            <field name="arch" type="xml">
+                <tree string="Product" editable="top">
+                    <field name="code" invisible="1"/>
+                    <field name="name" required="1"/>
+                    <field name="category_id" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_product_filter_view" model="ir.ui.view">
+           <field name="name">school.product.filter</field>
+           <field name="model">school.product</field>
+            <field name="arch" type="xml">
+                <search string="District">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="code"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="school_product_action_view" model="ir.actions.act_window">
+            <field name="name">Product/Item</field>
+            <field name="res_model">school.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Product here!
+              </p><p>
+              </p>
+            </field>
+        </record>
+
+        <!--        Needs-->
+
+        <record id="action_stakeholder_project_draft" model="ir.actions.act_window">
+            <field name="name">Project Inquiries</field>
+            <field name="res_model">stakeholder.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_need_id': [active_id],
+                'default_need_id': active_id,
+            }</field>
+            <field name="domain">[('state', '=', 'send')]</field>
+        </record>
+
+        <record id="action_stakeholder_project" model="ir.actions.act_window">
+            <field name="name">Approved Stakeholders</field>
+            <field name="res_model">stakeholder.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_need_id': [active_id],
+                'default_need_id': active_id,
+            }</field>
+            <field name="domain">[('state', 'in', ['approve', 'done'])]</field>
+        </record>
+
+        <record id="school_needs_form_view" model="ir.ui.view">
+            <field name="name">school.needs.form</field>
+            <field name="model">school.needs</field>
+            <field name="arch" type="xml">
+                <form string="Needs">
+                    <header>
+                        <field name="state" widget="statusbar" options="{'clickable':1}"/>
+                        <field name="state_name" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button name="%(action_stakeholder_project_draft)d"
+                                class="oe_stat_button"
+                                icon="fa-user" groups="snds.group_snds_user"
+                                type="action">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value text-primary">
+                                       <field name="no_of_stakeholder"/>
+                                    </span>
+                                    <span class="o_stat_text text-primary">
+                                        INQUIRY
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="%(action_stakeholder_project)d"
+                                class="oe_stat_button"
+                                icon="fa-user" groups="snds.group_snds_user"
+                                type="action">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value text-success">
+                                       <field name="no_of_stakeholder_approved"/>
+                                    </span>
+                                    <span class="o_stat_text text-success">
+                                        APPROVED
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="action_get_attachment_tree_view" class="oe_stat_button" icon="fa-book"
+                                    type="object">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value text-info">
+                                       <field name="attachment_number"/>
+                                    </span>
+                                    <span class="o_stat_text text-info">
+                                        DOCUMENTS
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="product_id" string="Product/Item" placeholder="Product/Item"/>
+                            <h2><field name="product_id" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/></h2>
+                            <label for="actual_percentage" string="Project Progress"/>
+                            <field name="actual_percentage" widget="progressbar"/>
+                        </div>
+                        <group string="General Information">
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="category_id" options="{'no_crate':True}" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="school_id" options="{'no_crate':True}" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="responsible_id" options="{'no_crate':True}" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="phone" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="email" required="1" widget="email" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="date_filed" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date_implemented" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="year_name" invisible="1"/>
+                                <field name="quantity" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="amount" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="amount_per_quantity" invisible="1"/>
+                                <field name="no_of_beneficiary_student" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="no_of_beneficiary_personnel" required="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="full_percentage" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="Brief Description of the Project">
+                            <field name="description" nolabel="1" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                        </group>
+                        <notebook attrs="{'invisible':[('state', '=', 'draft')]}">
+                            <page string="Contributors">
+                                <field name="stakeholder_approved_ids" nolabel="1" readonly="1">
+                                    <kanban sample="1">
+                                        <field name="user_id"/>
+                                        <field name="stakeholder_name"/>
+                                        <field name="amount_donated"/>
+                                        <field name="email"/>
+                                        <field name="phone"/>
+                                        <field name="state"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_global_click">
+                                                    <div class="o_kanban_image">
+                                                        <img t-att-src="kanban_image('res.users', 'image_1920', record.user_id.raw_value)" alt="Stakeholder" class="o_image_64_contain"/>
+                                                    </div>
+                                                    <div class="oe_kanban_details">
+                                                        <strong>
+                                                            <field name="stakeholder_name"/>
+                                                        </strong>
+                                                        <ul>
+                                                            <li><b>Amount Donated: P <field name="amount_donated"></field></b></li>
+                                                            <li><b>Email: </b> <field name="email"></field></li>
+                                                            <li><b>Mobile #: </b><field name="phone"></field></li>
+                                                            <li><b>Status: </b><field name="state"></field></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="school_needs_tree_view" model="ir.ui.view">
+            <field name="name">school.needs.tree</field>
+            <field name="model">school.needs</field>
+            <field name="arch" type="xml">
+                <tree string="Needs"
+                      decoration-success="state=='done'"
+                      decoration-info="state=='ongoing'">
+                    <field name="name"/>
+                    <field name="year_name"/>
+                    <field name="school_id"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="quantity"/>
+                    <field name="amount" sum="Total Amount" string="Estimated Amount"/>
+                    <field name="no_of_beneficiary_student"/>
+                    <field name="no_of_beneficiary_personnel"/>
+                    <field name="state_name"  string="Status of Implementation"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_needs_tree_view_readonly" model="ir.ui.view">
+            <field name="name">school.needs.tree.readonly</field>
+            <field name="model">school.needs</field>
+            <field name="arch" type="xml">
+                <tree string="Needs" create="false" edit="false" delete="false"
+                      decoration-success="state=='done'"
+                      decoration-info="state=='ongoing'">
+                    <button name="action_get_attachment_tree_readonly_view" class="oe_stat_button" icon="fa-book"
+                            type="object" string="DOCUMENTS">
+                    </button>
+                    <field name="name"/>
+                    <field name="year_name"/>
+                    <field name="school_id"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="quantity"/>
+                    <field name="amount" sum="Total Amount" string="Estimated Amount"/>
+                    <field name="no_of_beneficiary_student"/>
+                    <field name="no_of_beneficiary_personnel"/>
+                    <field name="state_name"  string="Status of Implementation"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_needs_filter_view" model="ir.ui.view">
+           <field name="name">school.needs.search</field>
+           <field name="model">school.needs</field>
+            <field name="arch" type="xml">
+                <search string="Needs">
+                    <field name="name"/>
+                    <field name="school_id"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <separator/>
+                    <filter string="Looking for Partners" name="looking_partners" domain="[('state', '=', 'draft')]"/>
+                    <filter string="On Going Partnership" name="ongoing_partner" domain="[('state', '=', 'ongoing')]"/>
+                    <filter string="Project Completed" name="done_project" domain="[('state', '=', 'done')]"/>
+                    <separator/>
+                </search>
+           </field>
+        </record>
+
+        <record id="school_needs_action_view" model="ir.actions.act_window">
+            <field name="name">Needs</field>
+            <field name="res_model">school.needs</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="school_needs_tree_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Add your needs here
+              </p><p>
+                Create the needs of the school here
+              </p>
+            </field>
+        </record>
+
+        <record id="school_needs_action_view_readonly" model="ir.actions.act_window">
+            <field name="name">Needs</field>
+            <field name="res_model">school.needs</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="school_needs_tree_view_readonly"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Add your needs here
+              </p><p>
+                Create the needs of the school here
+              </p>
+            </field>
+        </record>
+
+        <record id="action_school_needs_readonly" model="ir.actions.act_window">
+            <field name="name">Needs</field>
+            <field name="res_model">school.needs</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="school_needs_tree_view_readonly"/>
+            <field name="context">{
+                'search_default_school_id': [active_id],
+                'default_school_id': active_id,
+            }</field>
+        </record>
+
+        <record id="school_school_tree_readonly_view1" model="ir.ui.view">
+            <field name="name">school.school.tree.inherited</field>
+            <field name="model">school.school</field>
+            <field name="inherit_id" ref="school_school_tree_readonly_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <button name="%(action_school_needs_readonly)d"
+                            type="action" string="Needs" class="oe_stat_button"
+                            icon="fa-book">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="ir_attachment_view_search_inherit_school_needs" model="ir.ui.view">
+            <field name="name">ir.attachment.search.inherit.school.needs</field>
+            <field name="model">ir.attachment</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="base.view_attachment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='create_date']" position="after">
+                    <field name="index_content" string="Content"/>
+                </xpath>
+                <xpath expr="//filter[@name='my_documents_filter']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='url_filter']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='binary_filter']" position="attributes">
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_attachment_tree_readonly" model="ir.ui.view">
+            <field name="model">ir.attachment</field>
+            <field name="arch" type="xml">
+                <tree string="Attachments" create="false" edit="false">
+                    <field name="name"/>
+                    <field name="res_model"/>
+                    <field name="res_field"/>
+                    <field name="res_id"/>
+                    <field name="type"/>
+                    <field name="file_size"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,88 @@
+<odoo>
+    <data noupdate="1">
+        <record id="config_region_1" model="res.region">
+            <field name="description">Region I</field>
+            <field name="code">Ilocos</field>
+        </record>
+
+        <record id="config_region_2" model="res.region">
+            <field name="description">Region II</field>
+            <field name="code">Cagayan Valley</field>
+        </record>
+
+        <record id="config_region_3" model="res.region">
+            <field name="description">Region III</field>
+            <field name="code">Central Luzon</field>
+        </record>
+
+        <record id="config_region_4a" model="res.region">
+            <field name="description">Region IVa</field>
+            <field name="code">Calabarzon</field>
+        </record>
+
+        <record id="config_region_4b" model="res.region">
+            <field name="description">Region IVb</field>
+            <field name="code">Mimaropa</field>
+        </record>
+
+        <record id="config_region_5" model="res.region">
+            <field name="description">Region V</field>
+            <field name="code">Bicol</field>
+        </record>
+
+        <record id="config_region_6" model="res.region">
+            <field name="description">Region VI</field>
+            <field name="code">Western Visayas</field>
+        </record>
+
+        <record id="config_region_7" model="res.region">
+            <field name="description">Region VII</field>
+            <field name="code">Central Visayas</field>
+        </record>
+
+        <record id="config_region_8" model="res.region">
+            <field name="description">Region VIII</field>
+            <field name="code">Easter Visayas</field>
+        </record>
+
+        <record id="config_region_9" model="res.region">
+            <field name="description">Region IX</field>
+            <field name="code">Zamboanga Peninsula</field>
+        </record>
+
+        <record id="config_region_10" model="res.region">
+            <field name="description">Region X</field>
+            <field name="code">Northern Mindanao</field>
+        </record>
+
+        <record id="config_region_11" model="res.region">
+            <field name="description">Region XI</field>
+            <field name="code">Davao</field>
+        </record>
+
+        <record id="config_region_12" model="res.region">
+            <field name="description">Region XII</field>
+            <field name="code">Soccsksargen</field>
+        </record>
+
+        <record id="config_region_13" model="res.region">
+            <field name="description">Region XIII</field>
+            <field name="code">Caraga</field>
+        </record>
+
+        <record id="config_region_CAR" model="res.region">
+            <field name="description">Cordillera Administrative Region</field>
+            <field name="code">CAR</field>
+        </record>
+
+        <record id="config_region_ARMM" model="res.region">
+            <field name="description">Autonomous Region of Muslim Mindanao</field>
+            <field name="code">ARMM</field>
+        </record>
+
+        <record id="config_region_NCR" model="res.region">
+            <field name="description">National Capital Region</field>
+            <field name="code">NCR</field>
+        </record>
+    </data>
+</odoo>

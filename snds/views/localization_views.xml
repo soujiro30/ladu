@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+<!--        REGION-->
+        <record id="res_region_tree_view" model="ir.ui.view">
+            <field name="name">res.region.tree</field>
+            <field name="model">res.region</field>
+            <field name="arch" type="xml">
+                <tree string="Region" editable="top">
+                    <field name="name" invisible="1"/>
+                    <field name="description" required="1"/>
+                    <field name="code" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_region_filter_view" model="ir.ui.view">
+           <field name="name">res.region.filter</field>
+           <field name="model">res.region</field>
+            <field name="arch" type="xml">
+                <search string="Region">
+                    <field name="name"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="res_region_action_view" model="ir.actions.act_window">
+            <field name="name">Region</field>
+            <field name="res_model">res.region</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Region here!
+              </p><p>
+                Example of a Region here : National Capital Region
+              </p>
+            </field>
+        </record>
+<!--        DISTRICT-->
+        <record id="school_district_tree_view" model="ir.ui.view">
+            <field name="name">school.district.tree</field>
+            <field name="model">school.district</field>
+            <field name="arch" type="xml">
+                <tree string="District" editable="top">
+                    <field name="name" required="1"/>
+                    <field name="region_id" required="1" options="{'no_create':True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_district_filter_view" model="ir.ui.view">
+           <field name="name">school.district.filter</field>
+           <field name="model">school.district</field>
+            <field name="arch" type="xml">
+                <search string="District">
+                    <field name="name"/>
+                    <field name="region_id"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="school_district_action_view" model="ir.actions.act_window">
+            <field name="name">District</field>
+            <field name="res_model">school.district</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Region here!
+              </p><p>
+                Example of a District here : South Cotabato District
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,245 @@
+<odoo>
+    <data>
+        <record id="stakeholder_project_donate_form_view" model="ir.ui.view">
+            <field name="name">stakeholder.project.donate.tree</field>
+            <field name="model">stakeholder.project.donate</field>
+            <field name="arch" type="xml">
+                <tree string="Amount Donated" editable="top">
+                    <field name="amount" required="1"/>
+                    <field name="project_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stakeholder_project_donate_filter_view" model="ir.ui.view">
+           <field name="name">stakeholder.project.donate.filter</field>
+           <field name="model">stakeholder.project.donate</field>
+            <field name="arch" type="xml">
+                <search string="Amount Donated">
+              <field name="project_id"/>
+            </search>
+           </field>
+        </record>
+
+        <record id="action_stakeholder_project_donate" model="ir.actions.act_window">
+            <field name="name">Amount Donated</field>
+            <field name="res_model">stakeholder.project.donate</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{
+                'search_default_project_id': [active_id],
+                'default_project_id': active_id}
+            </field>
+        </record>
+
+        <record id="stakeholder_project_form_view" model="ir.ui.view">
+            <field name="name">stakeholder.project.form</field>
+            <field name="model">stakeholder.project</field>
+            <field name="arch" type="xml">
+                <form string="Project Inquiry" create="false" edit="false">
+                    <header>
+                        <button name="action_approve" string="Approved" type="object"
+                                class="oe_highlight" groups="snds.group_snds_user" states="send"/>
+
+                        <button name="action_done" string="Done" type="object"
+                                class="oe_highlight" groups="snds.group_snds_user" states="approve"/>
+
+                        <button name="action_refuse" string="Refuse" type="object"
+                                class="oe_highlight" groups="snds.group_snds_user" states="send,approve"/>
+
+                        <button name="action_cancel" string="Cancel" type="object"
+                                class="oe_highlight" groups="snds.group_snds_contributor" states="send,approve"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button name="%(action_stakeholder_project_donate)d"
+                                class="oe_stat_button" attrs="{'invisible':[('state', '!=', 'approve')]}"
+                                icon="fa-money"
+                                type="action">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value text-info">
+                                       <field name="amount_donated"/>
+                                    </span>
+                                    <span class="o_stat_text text-info">
+                                        Donated
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <div name="school_title" class="oe_title">
+                            <label for="school_id" string="School"/>
+                            <h2><field name="school_id" readonly="1"/></h2>
+                            <field name="name" invisible="1"/>
+                        </div>
+                        <group string="Needs Information">
+                            <group>
+                                <field name="need_id" readonly="1"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="category_id" readonly="1"/>
+                                <field name="quantity" readonly="1"/>
+                                <field name="amount" readonly="1"/>
+                                <field name="no_of_beneficiary_student" readonly="1"/>
+                                <field name="no_of_beneficiary_personnel" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="responsible_id" readonly="1"/>
+                                <field name="responsible_id_email" readonly="1"/>
+                                <field name="responsible_id_phone" readonly="1"/>
+                                <field name="date_implemented" readonly="1"/>
+                                <field name="inquire" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Contributor Information" attrs="{'required':[('inquire', '=', True)], 'invisible':[('inquire', '=', False)]}">
+                                <group>
+                                    <group string="Stakeholder Information" attrs="{'required':[('inquire', '=', True)], 'invisible':[('inquire', '=', False)]}">
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="date_filed" invisible="1"/>
+                                        <field name="stakeholder_name" attrs="{'required':[('inquire', '=', True)], 'invisible':[('inquire', '=', False)]}"/>
+                                        <field name="email" attrs="{'required':[('inquire', '=', True)], 'invisible':[('inquire', '=', False)]}"/>
+                                        <field name="phone" attrs="{'required':[('inquire', '=', True)], 'invisible':[('inquire', '=', False)]}"/>
+<!--                                        <field name="amount_donated" attrs="{'invisible':True}"/>-->
+                                    </group>
+                                    <group string="Brief Description" attrs="{'required':[('inquire', '=', True)], 'invisible':[('inquire', '=', False)]}">
+                                        <field name="description" nolabel="1" placeholder="Please comment below your description"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Amount Donated" attrs="{'invisible':[('state', 'not in', ['approve', 'done'])]}">
+                                <field name="amount_ids" readonly="1" nolabel="1">
+                                    <tree>
+                                        <field name="project_id" invisible="1"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <footer>
+                            <button name="action_send" string="Send" groups="snds.group_snds_contributor"
+                                type="object" class="oe_highlight" states="draft"/>
+                            <button string="Cancel" special="cancel" class="btn-primary" states="draft"/>
+                        </footer>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="stakeholder_project_tree_view_all" model="ir.ui.view">
+            <field name="name">stakeholder.project.tree.all</field>
+            <field name="model">stakeholder.project</field>
+            <field name="arch" type="xml">
+                <tree string="All Donations" create="false" edit="false">
+                    <field name="date_filed"/>
+                    <field name="name"/>
+                    <field name="school_id"/>
+                    <field name="stakeholder_name"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="amount_donated" sum="Total Donations" string="Amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stakeholder_project_tree_view" model="ir.ui.view">
+            <field name="name">stakeholder.project.tree</field>
+            <field name="model">stakeholder.project</field>
+            <field name="arch" type="xml">
+                <tree string="Project Inquiry" create="false" edit="false"
+                      decoration-success="state=='done'"
+                      decoration-danger="state=='refuse'"
+                      decoration-info="state=='approve'">
+                    <field name="name"/>
+                    <field name="need_id"/>
+                    <field name="school_id"/>
+                    <field name="product_id"/>
+                    <field name="category_id"/>
+                    <field name="stakeholder_name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="amount_donated" sum="Total Donations" string="Donated Amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stakeholder_project_filter_view" model="ir.ui.view">
+           <field name="name">stakeholder.project.filter</field>
+           <field name="model">stakeholder.project</field>
+            <field name="arch" type="xml">
+                <search string="Project Inquiry">
+                    <field name="stakeholder_name"/>
+                    <field name="need_id"/>
+                    <field name="school_id"/>
+                    <field name="product_id"/>
+                    <field name="amount_donated"/>
+                    <field name="state"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="stakeholder_project_action_inquiry_view" model="ir.actions.act_window">
+            <field name="name">Project Inquiry</field>
+            <field name="res_model">stakeholder.project</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'search_default_need_id': [active_id], 'default_need_id': active_id}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="stakeholder_project_action_views" model="ir.actions.act_window">
+            <field name="name">My Donations</field>
+            <field name="res_model">stakeholder.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('user_id', '=', uid)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="stakeholder_project_action_view" model="ir.actions.act_window">
+            <field name="name">Donations &amp; Inquiries</field>
+            <field name="res_model">stakeholder.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="stakeholder_project_all_action_view" model="ir.actions.act_window">
+            <field name="name">All Resources</field>
+            <field name="res_model">stakeholder.project</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="stakeholder_project_tree_view_all"/>
+            <field name="domain">[('state', '=', 'done')]</field>
+        </record>
+
+        <!-- Inherit Tree View to Modify it -->
+        <record id="school_needs_tree_inherited_view" model="ir.ui.view">
+            <field name="name">School Needs</field>
+            <field name="model">school.needs</field>
+            <field name="inherit_id" ref="snds.school_needs_tree_view_readonly"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_get_attachment_tree_readonly_view']" position="before">
+                    <button name="%(stakeholder_project_action_inquiry_view)d"
+                            class="oe_stat_button"
+                            icon="fa-clipboard" type="action" string="VIEW &amp; INQUIRE"
+                            groups="snds.group_snds_contributor">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

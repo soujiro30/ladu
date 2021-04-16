@@ -24,4 +24,7 @@ class SchoolDistrict(models.Model):
     order = 'name'
 
     name = fields.Char(string="Name", required=False, )
+    superintendent = fields.Char(string="Superintendent", required=False, )
+    phone = fields.Char(string="Tel. Nos.", required=False, )
+    email = fields.Char(string="Email", required=False, )
     region_id = fields.Many2one(comodel_name="res.region", string="Region", required=False, )

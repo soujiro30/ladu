@@ -112,7 +112,7 @@ class StakeholderProject(models.Model):
                 body_html += "<br/><p>Best regards, </p><p><b> " + project.school_id.responsible_id.name + "</b></p><p>"+ project.school_id.position_id.name +"</p><p>" + project.school_id.name + "</p><br/>"
 
                 vals = {
-                    'subject': "SNDS Project Status",
+                    'subject': "GoGetFunded Project Status",
                     'date': datetime.now(),
                     'email_from': '\"' + author.name + '\"<' + sender_email + '>',
                     'email_to': receiver_email,

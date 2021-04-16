@@ -42,7 +42,10 @@
             <field name="arch" type="xml">
                 <tree string="District" editable="top">
                     <field name="name" required="1"/>
+                    <field name="superintendent" required="1"/>
                     <field name="region_id" required="1" options="{'no_create':True}"/>
+                    <field name="phone" required="1"/>
+                    <field name="email" required="1" widget="email"/>
                 </tree>
             </field>
         </record>
@@ -53,6 +56,7 @@
             <field name="arch" type="xml">
                 <search string="District">
                     <field name="name"/>
+                    <field name="superintendent"/>
                     <field name="region_id"/>
                 </search>
            </field>
@@ -66,7 +70,7 @@
               <p class="oe_view_nocontent_create">
                 Create Region here!
               </p><p>
-                Example of a District here : South Cotabato District
+                Example of a District here : Name of District
               </p>
             </field>
         </record>

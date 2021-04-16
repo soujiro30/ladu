@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <menuitem id="main_snds_menu"
-                  name="SNDS"
+                  name="Go Get Funded"
                   web_icon="snds,static/description/icon.png"
                   sequence="1"
                   groups="snds.group_snds_contributor,snds.group_snds_user"/>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "School Needs Data System",
+    'name': "Go Get Funded",
 
     'summary': """
         Helping Schools and Finding Partners for Greater Sustainability""",
@@ -10,7 +10,7 @@
     """,
 
     'author': "Niel John Balogo",
-    'website': "http://www.schoolstextblast.com",
+    'website': "http://gogetfunded.net",
     'category': 'Uncategorized',
     'version': '0.1',
 

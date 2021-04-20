@@ -38,13 +38,13 @@
                 <form string="Project Inquiry" create="false" edit="false">
                     <header>
                         <button name="action_approve" string="Approved" type="object"
-                                class="oe_highlight" groups="snds.group_snds_user" states="send"/>
+                                class="oe_highlight" groups="snds.group_snds_school" states="send"/>
 
                         <button name="action_done" string="Done" type="object"
-                                class="oe_highlight" groups="snds.group_snds_user" states="approve"/>
+                                class="oe_highlight" groups="snds.group_snds_school" states="approve"/>
 
                         <button name="action_refuse" string="Refuse" type="object"
-                                class="oe_highlight" groups="snds.group_snds_user" states="send,approve"/>
+                                class="oe_highlight" groups="snds.group_snds_school" states="send,approve"/>
 
                         <button name="action_cancel" string="Cancel" type="object"
                                 class="oe_highlight" groups="snds.group_snds_contributor" states="send,approve"/>

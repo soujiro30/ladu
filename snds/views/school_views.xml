@@ -1,5 +1,134 @@
 <odoo>
     <data>
+<!--        Accountable Person-->
+        <record id="accountable_person_form_view" model="ir.ui.view">
+            <field name="name">accountable.person.form</field>
+            <field name="model">accountable.person</field>
+            <field name="arch" type="xml">
+                <form string="Accountable Person">
+                    <header>
+                        <button name="create_user_access" string="Create Access" type="object" class="oe_highlight"
+                                attrs="{'invisible':[('user_check', '=', True)]}"
+                                groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo"/>
+                    </header>
+                    <sheet>
+
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Name"/>
+                            <h2><field name="name" required="1"/> </h2>
+                            <field name="active" invisible="1"/>
+                            <field name="user_check" invisible="1"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="identification_id" required="1"/>
+                                <field name="position_id" required="1" options="{'no_create':True}"/>
+                                <field name="email" required="1"/>
+                                <field name="phone" required="1"/>
+                            </group>
+                            <group>
+                                <field name="access_type"/>
+                                <field name="user_id" attrs="{'invisible':[('user_check', '=', False)]}" readonly="1"/>
+                                <field name="responsible_id" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="accountable_person_tree_view" model="ir.ui.view">
+            <field name="name">accountable.person.tree</field>
+            <field name="model">accountable.person</field>
+            <field name="arch" type="xml">
+                <tree string="Accountable Person">
+                    <field name="name"/>
+                    <field name="identification_id"/>
+                    <field name="position_id"/>
+                    <field name="email" widget="email"/>
+                    <field name="phone"/>
+                    <field name="access_type"/>
+                    <field name="responsible_id" string="Encoded By"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="accountable_person_filter_view" model="ir.ui.view">
+           <field name="name">accountable.person.filter</field>
+           <field name="model">accountable.person</field>
+            <field name="arch" type="xml">
+                <search string="Accountable Person">
+                    <field name="name"/>
+                    <field name="email" widget="email"/>
+                    <field name="phone"/>
+                    <field name="access_type"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="accountable_person_action_view" model="ir.actions.act_window">
+            <field name="name">Accountable Person</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accountable.person</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('responsible_id', '=', uid)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="all_accountable_person_action_view" model="ir.actions.act_window">
+            <field name="name">All Accountable Person</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accountable.person</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+<!--        Position-->
+        <record id="school_position_tree_view" model="ir.ui.view">
+            <field name="name">school.position.tree</field>
+            <field name="model">school.position</field>
+            <field name="arch" type="xml">
+                <tree string="Position" editable="top">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_position_filter_view" model="ir.ui.view">
+           <field name="name">school.position.filter</field>
+           <field name="model">school.position</field>
+            <field name="arch" type="xml">
+                <search string="Position">
+                    <field name="name"/>
+                </search>
+           </field>
+        </record>
+
+        <record id="school_position_action_view" model="ir.actions.act_window">
+            <field name="name">Position</field>
+            <field name="res_model">school.position</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create your own School Position here!
+              </p><p>
+                Example of a school position here : Position 8
+              </p>
+            </field>
+        </record>
+
         <record id="action_school_needs" model="ir.actions.act_window">
             <field name="name">Needs</field>
             <field name="res_model">school.needs</field>
@@ -43,7 +172,8 @@
                                 <field name="region_id" required="1" options="{'no_create':True}"/>
                             </group>
                             <group>
-                                <field name="responsible_id" required="1" options="{'no_create':True}"/>
+                                <field name="accountable_person" required="1" options="{'no_create':True}"/>
+                                <field name="responsible_id" invisible="1" options="{'no_create':True}"/>
                                 <field name="position_id" required="1" options="{'no_create':True}"/>
                                 <field name="phone" required="1"/>
                                 <field name="email" required="1" widget="email"/>
@@ -119,6 +249,21 @@
             <field name="res_model">school.school</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="school_school_tree_view"/>
+            <field name="domain">['|','|', ('responsible_id', '=', uid), ('district_id.user_id', '=', uid), ('region_id.user_id', '=', uid)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Add School Information Here!
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="all_school_school_action_view" model="ir.actions.act_window">
+            <field name="name">Schools</field>
+            <field name="res_model">school.school</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="school_school_tree_view"/>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Add School Information Here!
@@ -153,40 +298,6 @@
                 Add School Information Here!
               </p><p>
                 <!-- More details about what a user can do with this object will be OK -->
-              </p>
-            </field>
-        </record>
-
-        <record id="school_position_tree_view" model="ir.ui.view">
-            <field name="name">school.position.tree</field>
-            <field name="model">school.position</field>
-            <field name="arch" type="xml">
-                <tree string="Position" editable="top">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name" required="1"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="school_position_filter_view" model="ir.ui.view">
-           <field name="name">school.position.filter</field>
-           <field name="model">school.position</field>
-            <field name="arch" type="xml">
-                <search string="Position">
-                    <field name="name"/>
-                </search>
-           </field>
-        </record>
-
-        <record id="school_position_action_view" model="ir.actions.act_window">
-            <field name="name">Position</field>
-            <field name="res_model">school.position</field>
-            <field name="view_mode">tree,form</field>
-            <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
-                Create your own School Position here!
-              </p><p>
-                Example of a school position here : Position 8
               </p>
             </field>
         </record>

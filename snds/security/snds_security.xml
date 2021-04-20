@@ -1,13 +1,28 @@
 <odoo>
     <data>
         <record id="module_category_snds" model="ir.module.category">
-            <field name="name">SNDS</field>
+            <field name="name">GGF Access</field>
         </record>
         <record id="group_snds_contributor" model="res.groups">
-            <field name="name">Contributor</field>
+            <field name="name">Donors</field>
             <field name="category_id" ref="module_category_snds"/>
             <field name="users" eval="[(4, ref('base.group_user'))]"/>
             <field name="implied_ids" eval="[(6, 0, [ref('base.group_user'), ref('base.template_portal_user_id')])]"/>
+        </record>
+
+        <record id="group_snds_ro" model="res.groups">
+            <field name="name">Regional Office</field>
+            <field name="category_id" ref="module_category_snds"/>
+        </record>
+
+        <record id="group_snds_sdo" model="res.groups">
+            <field name="name">Schools Division Office</field>
+            <field name="category_id" ref="module_category_snds"/>
+        </record>
+
+        <record id="group_snds_school" model="res.groups">
+            <field name="name">School</field>
+            <field name="category_id" ref="module_category_snds"/>
         </record>
 
         <record id="group_snds_user" model="res.groups">

@@ -328,6 +328,21 @@
             </field>
         </record>
 
+        <record id="school_needs_action_view_sdo" model="ir.actions.act_window">
+            <field name="name">Needs</field>
+            <field name="res_model">school.needs</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="school_needs_tree_view"/>
+            <field name="domain">['|', '|', ('school_id.responsible_id', '=', uid), ('school_id.district_id.user_id', '=', uid), ('school_id.region_id.user_id', '=', uid)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Add your needs here
+              </p><p>
+                Create the needs of the school here
+              </p>
+            </field>
+        </record>
+
         <record id="action_school_needs_readonly" model="ir.actions.act_window">
             <field name="name">Needs</field>
             <field name="res_model">school.needs</field>

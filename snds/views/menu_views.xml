@@ -4,21 +4,27 @@
                   name="Go Get Funded"
                   web_icon="snds,static/description/icon.png"
                   sequence="1"
-                  groups="snds.group_snds_contributor,snds.group_snds_user"/>
+                  groups="snds.group_snds_contributor,snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
 
-<!--        NEEDS for Contributor-->
+<!--        NEEDS for Donors-->
         <menuitem id="menu_snds_main_needs_readonly_id" name="Needs" parent="main_snds_menu"
                   sequence="1" action="school_needs_action_view_readonly"
                   groups="snds.group_snds_contributor"/>
 
-<!--        NEEDS for USER-->
+        <!--        NEEDS for SDO, RO, SCHOOL-->
+        <menuitem id="menu_snds_main_needs_sdo_id" name="Needs" parent="main_snds_menu"
+                  sequence="2" action="school_needs_action_view_sdo"
+                  groups="snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
+
+
+<!--        NEEDS for administrator-->
         <menuitem id="menu_snds_main_needs_id" name="Needs" parent="main_snds_menu"
-                  sequence="2" action="school_needs_action_view"
+                  sequence="3" action="school_needs_action_view"
                   groups="snds.group_snds_user"/>
 
-<!--        SCHOOLS for CONTRIBUTOR-->
+<!--        SCHOOLS for Donors-->
         <menuitem id="menu_snds_find_school_id" name="Find a School" parent="main_snds_menu"
-                  sequence="3" groups="snds.group_snds_contributor"/>
+                  sequence="4" groups="snds.group_snds_contributor"/>
 
         <menuitem id="menu_snds_all_school_id" name="All" parent="menu_snds_find_school_id"
                   action="school_school_readonly_action_view" sequence="1"
@@ -28,11 +34,15 @@
                   action="school_school_group_by_district_action_view" sequence="2"
                   groups="snds.group_snds_contributor"/>
 
-<!--        SCHOOLS for USER-->
-        <menuitem id="menu_snds_school_id" name="Schools" parent="main_snds_menu"
-                  sequence="4" action="school_school_action_view" groups="snds.group_snds_user"/>
+<!--        SCHOOLS for Administrator-->
+        <menuitem id="menu_all_snds_school_id" name="All Schools" parent="main_snds_menu"
+                  sequence="5" action="all_school_school_action_view" groups="snds.group_snds_user"/>
 
-<!--        MY CONTRIBUTION-->
+        <!--SCHOOLS for SDO, RO-->
+        <menuitem id="menu_snds_school_id" name="Schools" parent="main_snds_menu"
+                  sequence="6" action="school_school_action_view" groups="snds.group_snds_sdo,snds.group_snds_ro,snds.group_snds_school"/>
+
+<!--        MY Donation-->
         <menuitem id="menu_snds_my_contribution" name="My Donations"
                   parent="main_snds_menu" action="stakeholder_project_action_views" sequence="5"
                   groups="snds.group_snds_contributor"/>
@@ -40,25 +50,39 @@
         <!-- ALL Donations for User Monitoring -->
         <menuitem id="menu_snds_donations" parent="main_snds_menu"
                   action="stakeholder_project_action_view" sequence="6"
-                  groups="snds.group_snds_user"/>
+                  groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
 
 <!--        ALL RESOURCES-->
         <menuitem id="menu_snds_all_resources" name="All Resources" parent="main_snds_menu" action="stakeholder_project_all_action_view" sequence="7"/>
+
 <!--        Configuration-->
         <menuitem id="menu_snds_configuration" name="Configuration" parent="main_snds_menu"
-                  sequence="99" groups="snds.group_snds_user"/>
+                  sequence="99" groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo"/>
 
-<!--        Position-->
-        <menuitem id="menu_snds_school_region_id" name="Region" parent="menu_snds_configuration"
-                  sequence="1" action="res_region_action_view" groups="snds.group_snds_user"/>
+<!--        Accountable Person Menu-->
+        <menuitem id="menu_ggf_accountable_person_id" name="Manage Access Portal" parent="menu_snds_configuration"
+                  sequence="1" action="accountable_person_action_view" groups="snds.group_snds_ro,snds.group_snds_sdo"/>
 
-        <menuitem id="menu_snds_school_district_id" name="District" parent="menu_snds_configuration"
-                  sequence="2" action="school_district_action_view" groups="snds.group_snds_user"/>
+        <menuitem id="menu_ggf_all_accountable_person_id" name="All Access Portal" parent="menu_snds_configuration"
+                  sequence="2" action="all_accountable_person_action_view" groups="snds.group_snds_user"/>
 
-        <menuitem id="menu_snds_school_position_id" name="Position" parent="menu_snds_configuration"
-                  sequence="3" action="school_position_action_view" groups="snds.group_snds_user"/>
+<!--        Region Menu-->
+        <menuitem id="menu_snds_school_region_id" name="School Regions" parent="menu_snds_configuration"
+                  sequence="3" action="res_region_action_view" groups="snds.group_snds_user"/>
 
-        <menuitem id="menu_snds_school_product_id" name="Product/Item" parent="menu_snds_configuration"
-                  sequence="4" action="school_product_action_view" groups="snds.group_snds_user"/>
+<!--        District Menu-->
+        <menuitem id="menu_snds_school_district_id" name="School Districts" parent="menu_snds_configuration"
+                  sequence="4" action="school_district_action_view" groups="snds.group_snds_ro,snds.group_snds_sdo"/>
+
+        <menuitem id="menu_snds_all_school_district_id" name="All School Districts" parent="menu_snds_configuration"
+                  sequence="5" action="all_school_district_action_view" groups="snds.group_snds_user"/>
+
+<!--        Position Menu-->
+        <menuitem id="menu_snds_school_position_id" name="Positions" parent="menu_snds_configuration"
+                  sequence="6" action="school_position_action_view" groups="snds.group_snds_ro"/>
+
+<!--        Items Menu-->
+        <menuitem id="menu_snds_school_product_id" name="Product/Items" parent="menu_snds_configuration"
+                  sequence="7" action="school_product_action_view" groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
     </data>
 </odoo>

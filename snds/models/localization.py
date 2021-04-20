@@ -15,6 +15,8 @@ class ResRegions(models.Model):
 
     name = fields.Char(string='Name', compute='compute_name', store=True)
     description = fields.Char(string="Description", required=False, )
+    user_id = fields.Many2one(comodel_name="res.users", string="Responsible", required=False,
+                                     default=lambda self: self.env.user.id)
     code = fields.Char(string="Code", required=False, )
 
 
@@ -28,3 +30,5 @@ class SchoolDistrict(models.Model):
     phone = fields.Char(string="Tel. Nos.", required=False, )
     email = fields.Char(string="Email", required=False, )
     region_id = fields.Many2one(comodel_name="res.region", string="Region", required=False, )
+    user_id = fields.Many2one(comodel_name="res.users", string="Responsible", required=False,
+                              default=lambda self: self.env.user.id)

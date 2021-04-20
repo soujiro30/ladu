@@ -39,7 +39,7 @@ class StakeholderProject(models.Model):
                                      related="school_id.responsible_id")
     responsible_id_email = fields.Char(string="Personnel Email", required=False, related="school_id.email")
     responsible_id_phone = fields.Char(string="Phone Number", required=False, related="school_id.phone")
-    inquire = fields.Boolean(string="Inquire About this Project",  default=False)
+    inquire = fields.Boolean(string="Send a message to this school",  default=False)
     amount_ids = fields.One2many(comodel_name="stakeholder.project.donate", inverse_name="project_id", string="Donated Amount", required=False, )
 
     @api.depends('amount_ids')
@@ -106,9 +106,9 @@ class StakeholderProject(models.Model):
                 if project.state == 'refuse':
                     body_html += "<p>Thank you for participating on our project necessity however your request has been refuse. You may contact us if you have any verification. <br/>Thank You! </p>"
                 if project.state == 'approve':
-                    body_html += "<p>Congratulations! Your project necessity request has been approved!<br/>You may see on your portal for the verification of your donation. Thank you! </p>"
+                    body_html += "<p>Congratulations! Your project request has been approved!<br/>You may see on your portal for the verification of your donation. Thank you! </p>"
                 if project.state == 'done':
-                    body_html += "<p>We would like to congratulate you because your contribution is now implemented to the school. <br/>We are looking forward for more projects to come together with your partnership. <br/>Godbless and Thank you!</p>"
+                    body_html += "<p>Congratulations! your donation is now implemented to the school. <br/>We are looking forward for more projects to come together with your partnership. <br/>Godbless and Thank you!</p>"
                 body_html += "<br/><p>Best regards, </p><p><b> " + project.school_id.responsible_id.name + "</b></p><p>"+ project.school_id.position_id.name +"</p><p>" + project.school_id.name + "</p><br/>"
 
                 vals = {
@@ -127,8 +127,8 @@ class StakeholderProject(models.Model):
                     'model': project._name,
                     'res_id': project.id,
                 }
-                result = mail_mail.create(vals)
-                result.send()
+                result = mail_mail.sudo().create(vals)
+                result.sudo().send()
                 return result
 
     def action_approve(self):

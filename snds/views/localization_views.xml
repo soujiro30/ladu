@@ -9,6 +9,7 @@
                     <field name="name" invisible="1"/>
                     <field name="description" required="1"/>
                     <field name="code" required="1"/>
+                    <field name="user_id" required="1"/>
                 </tree>
             </field>
         </record>
@@ -46,6 +47,7 @@
                     <field name="region_id" required="1" options="{'no_create':True}"/>
                     <field name="phone" required="1"/>
                     <field name="email" required="1" widget="email"/>
+                    <field name="user_id" required="1"/>
                 </tree>
             </field>
         </record>
@@ -63,6 +65,20 @@
         </record>
 
         <record id="school_district_action_view" model="ir.actions.act_window">
+            <field name="name">District</field>
+            <field name="res_model">school.district</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">['|', '|', ('user_id', '=', uid), ('region_id.user_id', '=', uid)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Region here!
+              </p><p>
+                Example of a District here : Name of District
+              </p>
+            </field>
+        </record>
+
+        <record id="all_school_district_action_view" model="ir.actions.act_window">
             <field name="name">District</field>
             <field name="res_model">school.district</field>
             <field name="view_mode">tree,form</field>

@@ -125,7 +125,7 @@
                         <div name="button_box" class="oe_button_box">
                             <button name="%(action_stakeholder_project_draft)d"
                                 class="oe_stat_button"
-                                icon="fa-user" groups="snds.group_snds_user"
+                                icon="fa-user" groups="snds.group_snds_school"
                                 type="action">
                                 <div class="o_stat_info">
                                     <span class="o_stat_value text-primary">
@@ -138,7 +138,7 @@
                             </button>
                             <button name="%(action_stakeholder_project)d"
                                 class="oe_stat_button"
-                                icon="fa-user" groups="snds.group_snds_user"
+                                icon="fa-user" groups="snds.group_snds_school"
                                 type="action">
                                 <div class="o_stat_info">
                                     <span class="o_stat_value text-success">

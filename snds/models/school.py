@@ -22,6 +22,23 @@ class AccountablePerson(models.Model):
     active = fields.Boolean(string="Active", default=True)
     user_check = fields.Boolean(string="Check Portal",  )
 
+    def write(self, values):
+        res = super(AccountablePerson, self).write(values)
+        if res and ('name' in values or 'identification_id' in values or 'email' in values or 'access_type' in values):
+            if self.user_id:
+                user_id = self.env['res.users'].sudo().browse(self.user_id.id)
+                gid = [self.env.ref('base.group_user').id]
+                if self.access_type == '1':
+                    gid.append(self.env.ref('snds.group_snds_school').id)
+                if self.access_type == '2':
+                    gid.append(self.env.ref('snds.group_snds_sdo').id)
+                if self.access_type == '3':
+                    gid.append(self.env.ref('snds.group_snds_ro').id)
+                groups_id = [(6, 0, gid)]
+                user_id.sudo().write({'name': self.name, 'login': self.email,
+                                      'password': self.identification_id, 'groups_id': groups_id})
+        return res
+
     def create_user_access(self):
         if self.env.user.has_group('snds.group_snds_user') or self.env.user.has_group('snds.group_snds_ro') or \
                 self.env.user.has_group('snds.group_snds_sdo'):

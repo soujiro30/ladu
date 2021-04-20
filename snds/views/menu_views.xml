@@ -60,29 +60,33 @@
                   sequence="99" groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo"/>
 
 <!--        Accountable Person Menu-->
-        <menuitem id="menu_ggf_accountable_person_id" name="Manage Access Portal" parent="menu_snds_configuration"
+        <menuitem id="menu_ggf_accountable_person_id" name="Manage Accountable Person" parent="menu_snds_configuration"
                   sequence="1" action="accountable_person_action_view" groups="snds.group_snds_ro,snds.group_snds_sdo"/>
 
-        <menuitem id="menu_ggf_all_accountable_person_id" name="All Access Portal" parent="menu_snds_configuration"
+        <menuitem id="menu_ggf_all_accountable_person_id" name="All Accountable Person" parent="menu_snds_configuration"
                   sequence="2" action="all_accountable_person_action_view" groups="snds.group_snds_user"/>
 
 <!--        Region Menu-->
         <menuitem id="menu_snds_school_region_id" name="School Regions" parent="menu_snds_configuration"
-                  sequence="3" action="res_region_action_view" groups="snds.group_snds_user"/>
+                  sequence="3" action="res_region_action_view" groups="snds.group_snds_ro"/>
+
+<!--        All Region-->
+        <menuitem id="menu_all_snds_school_region_id" name="All School Regions" parent="menu_snds_configuration"
+                  sequence="4" action="all_res_region_action_view" groups="snds.group_snds_user"/>
 
 <!--        District Menu-->
         <menuitem id="menu_snds_school_district_id" name="School Districts" parent="menu_snds_configuration"
-                  sequence="4" action="school_district_action_view" groups="snds.group_snds_ro,snds.group_snds_sdo"/>
+                  sequence="5" action="school_district_action_view" groups="snds.group_snds_ro,snds.group_snds_sdo"/>
 
         <menuitem id="menu_snds_all_school_district_id" name="All School Districts" parent="menu_snds_configuration"
-                  sequence="5" action="all_school_district_action_view" groups="snds.group_snds_user"/>
+                  sequence="6" action="all_school_district_action_view" groups="snds.group_snds_user"/>
 
 <!--        Position Menu-->
         <menuitem id="menu_snds_school_position_id" name="Positions" parent="menu_snds_configuration"
-                  sequence="6" action="school_position_action_view" groups="snds.group_snds_ro"/>
+                  sequence="7" action="school_position_action_view" groups="snds.group_snds_ro"/>
 
 <!--        Items Menu-->
         <menuitem id="menu_snds_school_product_id" name="Product/Items" parent="menu_snds_configuration"
-                  sequence="7" action="school_product_action_view" groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
+                  sequence="8" action="school_product_action_view" groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
     </data>
 </odoo>

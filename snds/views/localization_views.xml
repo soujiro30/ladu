@@ -28,6 +28,7 @@
             <field name="name">Region</field>
             <field name="res_model">res.region</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('user_id', '=', uid)]</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Create Region here!
@@ -36,6 +37,20 @@
               </p>
             </field>
         </record>
+
+        <record id="all_res_region_action_view" model="ir.actions.act_window">
+            <field name="name">Region</field>
+            <field name="res_model">res.region</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Region here!
+              </p><p>
+                Example of a Region here : National Capital Region
+              </p>
+            </field>
+        </record>
+
 <!--        DISTRICT-->
         <record id="school_district_tree_view" model="ir.ui.view">
             <field name="name">school.district.tree</field>
@@ -68,7 +83,7 @@
             <field name="name">District</field>
             <field name="res_model">school.district</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">['|', '|', ('user_id', '=', uid), ('region_id.user_id', '=', uid)]</field>
+            <field name="domain">['|', ('user_id', '=', uid), ('region_id.user_id', '=', uid)]</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Create Region here!

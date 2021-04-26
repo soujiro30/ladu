@@ -48,6 +48,10 @@ class AccountablePerson(models.Model):
             if not found and not self.user_id:
                 company = [(4, company_id.id)]
                 groups_id = [(4, self.env.ref('base.group_user').id)]
+                if self.env.user.has_group('snds.group_snds_ro') and (self.access_type in ['3', '1']):
+                    raise ValidationError(_("You are not allowed to do this action. You can only set access for SDO."))
+                if self.env.user.has_group('snds.group_snds_sdo') and (self.access_type in ['2', '1']):
+                    raise ValidationError(_("You are not allowed to do this action. You can only set access for School Accountable person."))
                 if self.access_type == '1':
                     groups_id.append((4, self.env.ref('snds.group_snds_school').id))
                 if self.access_type == '2':

@@ -3,7 +3,7 @@
 
         <!--Outgoing email-->
         <record id="config_email_server_gmail_noreply" model="ir.mail_server">
-            <field name="name">GGF Mail Server</field>
+            <field name="name">WLS Mail Server</field>
             <field name="sequence">1</field>
             <field name="smtp_host">smtp.gmail.com</field>
             <field name="smtp_port">465</field>
@@ -14,7 +14,7 @@
 
         <!--Incoming email-->
         <record id="config_fetch_email_server" model="fetchmail.server">
-            <field name="name">GGF Mail Server</field>
+            <field name="name">WLS Mail Server</field>
             <field name="server_type">imap</field>
             <field name="server">imap.gmail.com</field>
             <field name="port" eval='993'/>
@@ -31,14 +31,14 @@
         </record>
 
         <record id="base.main_partner" model="res.partner">
-            <field name="name">GO GET FUNDED</field>
+            <field name="name">WISH LIST SYSTEM</field>
             <field name="email">snds.noreply@gmail.com</field>
             <field name="website">gogetfunded.net</field>
             <field name="is_company" eval="True"/>
         </record>
 
         <record id="base.main_company" model="res.company">
-            <field name="name">GO GET FUNDED</field>
+            <field name="name">WISH LIST SYSTEM</field>
             <field name="currency_id" ref="base.PHP"/>
         </record>
 

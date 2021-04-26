@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Go Get Funded",
+    'name': "WISH LIST SYSTEM",
 
     'summary': """
         Helping Schools and Finding Partners for Greater Sustainability""",

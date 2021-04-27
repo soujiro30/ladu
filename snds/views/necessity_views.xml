@@ -50,7 +50,7 @@
                 <tree string="Product" editable="top">
                     <field name="code" invisible="1"/>
                     <field name="name" required="1"/>
-                    <field name="category_id" required="1"/>
+                    <field name="category_id" required="1" options="{'no_create':True}"/>
                 </tree>
             </field>
         </record>

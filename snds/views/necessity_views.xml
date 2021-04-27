@@ -507,6 +507,7 @@
                                                 No. of Needs: <field name="no_of_needs"/><br/>
                                                 No. of Items: <field name="no_of_products"/>
                                             </div>
+                                            <div class="col-6"></div>
                                         </div>
                                     </div>
                                 </div>

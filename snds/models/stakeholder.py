@@ -3,6 +3,7 @@ from datetime import datetime, date
 from odoo.exceptions import ValidationError, UserError
 # from urlparse import urljoin
 
+
 class StakeholderProject(models.Model):
     _name = 'stakeholder.project'
     _description = 'Donations'
@@ -69,10 +70,59 @@ class StakeholderProject(models.Model):
             self.stakeholder_name = self.user_id.name
             self.email = self.user_id.login
 
+    def get_mail_channel(self, sender, receiver):
+        mail_channels = self.env['mail.channel']
+        if sender and receiver:
+            sender_partner = sender.partner_id
+            receiver_partner = receiver.partner_id
+            if sender_partner and receiver_partner:
+                mail_channels_res = mail_channels.sudo().search([('public', '=', 'private'), ('channel_type', '=', 'chat'),
+                                                                 ('channel_partner_ids', 'in', [sender_partner.id, receiver_partner.id]),
+                                                                 '|', ('name', 'ilike', sender_partner.name + ', ' + receiver_partner.name),
+                                                                 ('name', 'ilike', receiver_partner.name + ', ' + sender_partner.name)], limit=1, order='create_date desc')
+                if mail_channels_res:
+                    result = mail_channels_res
+                else:
+                    partners = [(4, sender_partner.id, None), (4, receiver_partner.id, None)]
+                    mail_channel_create = mail_channels.sudo().create({'name': receiver_partner.name + ', ' + sender_partner.name,
+                                                                       'public': 'private',
+                                                                       'channel_type': 'chat',
+                                                                       'channel_partner_ids': partners})
+                    result = mail_channel_create
+                return result
+
+    def create_mail_message(self, channel, sender, receiver, body):
+        if channel and sender and receiver:
+            mail_message = self.env['mail.message']
+            sender_partner = sender.partner_id
+            receiver_partner = receiver.partner_id
+            if sender_partner and receiver_partner:
+                vals = {
+                    'subject': 'Notification Approval',
+                    'date': datetime.now(),
+                    'email_from': '\"' + sender_partner.name + '\"<' + sender_partner.email + '>',
+                    'author_id': sender_partner.id,
+                    'record_name': channel.name,
+                    'model': 'mail.channel',
+                    'res_id': int(channel.id),
+                    'message_type': 'comment',
+                    'subtype_id': self.env.ref('mail.mt_comment').id,
+                    'reply_to': '\"' + sender_partner.name + '\"<' + sender_partner.email + '>',
+                    'channel_ids': [(4, channel.id, None)],
+                    'body': body
+                }
+                result = mail_message.sudo().create(vals)
+                return result
+
     def action_send(self):
         if self.inquire == False or not self.inquire:
             raise ValidationError(_("You cannot send this inquiry. Please check the inquiry checkbox and complete the information below."))
         self.state = 'send'
+        sender = self.user_id
+        receiver = self.responsible_id
+        channel = self.get_mail_channel(sender, receiver)
+        body = "<p>Hello Sir/Maam @" + self.responsible_id.name + ", I would like to inquire about the needs of your school with the reference number " + self.need_id.name + ".</p>"
+        self.create_mail_message(channel, sender, receiver, body)
         model_obj = self.env['ir.model.data']
         data_id = model_obj._get_id('snds', 'stakeholder_project_tree_view')
         view_id = model_obj.sudo().browse(data_id).res_id
@@ -84,15 +134,6 @@ class StakeholderProject(models.Model):
                 'view_id': view_id,
                 'target': 'current',
                 'nodestroy': True}
-
-    # def donation_link_url(self):
-    #     base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-    #     model_name = self._name
-    #     action_view = self.env.ref('snds.stakeholder_project_action_views').id
-    #     cids = self.env.user.company_id.id
-    #     menu_view = self.env.ref('snds.menu_snds_my_contribution').id
-    #     result = "%s/web#action=%s&model=%s&view_type=list&cids=%s&menu_id=%s" % (base_url, action_view, model_name, cids, menu_view)
-    #     return result
 
     def send_email(self):
         mail_mail = self.env['mail.mail']
@@ -136,6 +177,11 @@ class StakeholderProject(models.Model):
             self.state = "approve"
             need = self.need_id
             need.write({'state': 'ongoing'})
+            sender = self.responsible_id
+            receiver = self.user_id
+            channel = self.get_mail_channel(sender, receiver)
+            body = "<p>Hello Sir/Maam @" + self.user_id.name + ", Congratulations! Your project request has been approved! Please see on your portal with this reference numebr " + self.name + ".</p>"
+            self.create_mail_message(channel, sender, receiver, body)
             self.send_email()
         else:
             raise ValidationError(_("You are not allowed to approve this project. Please contact the administrator"))
@@ -145,6 +191,11 @@ class StakeholderProject(models.Model):
             self.state = "done"
             need = self.need_id
             need.compute_actual_percentage()
+            sender = self.responsible_id
+            receiver = self.user_id
+            channel = self.get_mail_channel(sender, receiver)
+            body = "<p>Hello Sir/Maam @" + self.user_id.name + ", <p>Congratulations! your donation is now implemented to the school. <br/>We are looking forward for more projects to come together with your partnership. <br/>Godbless and Thank you!</p>"
+            self.create_mail_message(channel, sender, receiver, body)
             self.send_email()
         else:
             raise ValidationError(_("You are not allowed to complete this project. Please contact the administrator"))
@@ -158,6 +209,11 @@ class StakeholderProject(models.Model):
     def action_refuse(self):
         if self.school_id.responsible_id.id == self.env.user.id:
             self.state = 'refuse'
+            sender = self.responsible_id
+            receiver = self.user_id
+            channel = self.get_mail_channel(sender, receiver)
+            body = "<p>Thank you for participating on our project necessity however your request has been refuse. You may contact us if you have any verification. <br/>Thank You! </p>"
+            self.create_mail_message(channel, sender, receiver, body)
             self.send_email()
         else:
             raise ValidationError(_("You are not allowed to refuse this project. Please contact the administrator"))

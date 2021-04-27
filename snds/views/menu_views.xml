@@ -1,10 +1,17 @@
 <odoo>
     <data>
         <menuitem id="main_snds_menu"
-                  name="WISH LIST SYSTEM"
+                  name="WLS"
                   web_icon="snds,static/description/icon.png"
                   sequence="1"
                   groups="snds.group_snds_contributor,snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>
+
+        <menuitem
+            id="menu_snds_board_my_dash"
+            name="Dashboard"
+            parent="main_snds_menu"
+            action="school_product_category_action_kanban"
+            sequence="1"/>
 
 <!--        NEEDS for Donors-->
         <menuitem id="menu_snds_main_needs_readonly_id" name="Needs" parent="main_snds_menu"

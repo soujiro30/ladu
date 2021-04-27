@@ -7,23 +7,51 @@ from odoo.exceptions import ValidationError, UserError
 class SchoolProductCategory(models.Model):
     _name = 'school.product.category'
     _description = 'Product Category'
+    _order = 'name'
 
     name = fields.Char(string="Category", required=False, )
+    product_ids = fields.One2many(comodel_name="school.product", inverse_name="category_id", string="Products", required=False, )
+    no_of_products = fields.Integer(string="No of. Items", required=False, compute="_compute_product_count")
+    need_ids = fields.One2many(comodel_name="school.needs", inverse_name="category_id", string="Needs", required=False, )
+    no_of_needs = fields.Integer(string="No of. Needs", required=False, compute="_compute_needs_count")
+    color = fields.Integer("Color Index")
+
+    def _compute_needs_count(self):
+        records_data = self.env['school.needs'].sudo().read_group([('category_id', 'in', self.ids)], ['category_id'],
+                                                                  ['category_id'])
+        result = dict((data['category_id'][0], data['category_id_count']) for data in records_data)
+        for rec in self:
+            rec.no_of_needs = result.get(rec.id, 0)
+
+    def _compute_product_count(self):
+        records_data = self.env['school.product'].sudo().read_group([('category_id', 'in', self.ids)], ['category_id'], ['category_id'])
+        result = dict((data['category_id'][0], data['category_id_count']) for data in records_data)
+        for rec in self:
+            rec.no_of_products = result.get(rec.id, 0)
 
 
 class SchoolProduct(models.Model):
     _name = 'school.product'
     _description = 'Products'
+    _order = 'name'
 
     name = fields.Char(string="Product Name", required=False, default="New")
     category_id = fields.Many2one(comodel_name="school.product.category", string="Category", required=False, )
-    code = fields.Char(string="Code", required=False, )
+    code = fields.Char(string="Code", required=False, default="New")
+    need_ids = fields.One2many(comodel_name="school.needs", inverse_name="product_id", string="Needs", required=False, )
+    no_of_needs = fields.Integer(string="No of. Needs", required=False, compute="_compute_needs_count")
+
+    def _compute_needs_count(self):
+        records_data = self.env['school.needs'].sudo().read_group([('product_id', 'in', self.ids)], ['product_id'], ['product_id'])
+        result = dict((data['product_id'][0], data['product_id_count']) for data in records_data)
+        for rec in self:
+            rec.no_of_needs = result.get(rec.id, 0)
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
+        if vals.get('code', 'New') == 'New':
             seq_date = None
-            vals['name'] = self.env['ir.sequence'].next_by_code('school.needs', sequence_date=seq_date) or '/'
+            vals['code'] = self.env['ir.sequence'].next_by_code('school.needs', sequence_date=seq_date) or '/'
         return super(SchoolProduct, self).create(vals)
 
 

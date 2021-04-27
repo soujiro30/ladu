@@ -490,24 +490,24 @@
                                 <div class="container o_kanban_card_content">
                                     <div class="row">
                                         <div class="col-6 text-center">
-                                            <button class="btn btn-primary" name="%(school_needs_action_view_group_by_products)d" type="action">
+                                            <button class="btn btn-primary btn-lg btn-block" name="%(school_needs_action_view_group_by_products)d" type="action">
                                                 SCHOOL NEEDS
                                             </button>
 
-
                                         </div>
                                         <div class="col-6 text-center">
-                                            <button class="btn btn-primary" name="%(school_product_action_view_readonly)d" type="action">
+                                            <button class="btn btn-secondary btn-lg btn-block" name="%(school_product_action_view_readonly)d" type="action">
                                                  LIST OF ITEMS
                                             </button>
                                         </div>
                                     </div>
                                     <div name="kanban_boxes" class="row o_snds_kanban_boxes">
                                         <div class="o_snds_kanban_box o_kanban_primary_bottom bottom_block" style="padding-left:8px;">
-                                            <div class="col-xs-12">
+                                            <div class="col-6">
                                                 No. of Items: <field name="no_of_products"/><br/>
                                                 No. of Needs: <field name="no_of_needs"/>
                                             </div>
+                                            <div class="col-6"></div>
                                         </div>
                                     </div>
                                 </div>

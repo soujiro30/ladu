@@ -24,6 +24,7 @@
         'data/init_data.xml',
         'data/ir_sequence_data.xml',
         'wizard/account_access_views.xml',
+        'views/snds_templates.xml',
         'views/mail_views.xml',
         'views/localization_views.xml',
         'views/school_views.xml',

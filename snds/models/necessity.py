@@ -10,6 +10,7 @@ class SchoolProductCategory(models.Model):
     _order = 'name'
 
     name = fields.Char(string="Category", required=False, )
+    description = fields.Text(string="Brief Description", required=False, )
     product_ids = fields.One2many(comodel_name="school.product", inverse_name="category_id", string="Products", required=False, )
     no_of_products = fields.Integer(string="No of. Items", required=False, compute="_compute_product_count")
     need_ids = fields.One2many(comodel_name="school.needs", inverse_name="category_id", string="Needs", required=False, )

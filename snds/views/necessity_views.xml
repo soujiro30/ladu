@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <tree string="Product Category" editable="top">
                     <field name="name" required="1"/>
+                    <field name="description"/>
                 </tree>
             </field>
         </record>
@@ -34,7 +35,7 @@
                             <group>
                                 <field name="code" invisible="1"/>
                                 <field name="name" required="1"/>
-                                <field name="category_id" required="1"/>
+                                <field name="category_id" required="1" options="{'no_create':True}"/>
                             </group>
                         </group>
                     </sheet>
@@ -468,10 +469,11 @@
             <field name="name">school.product.category.kanban</field>
             <field name="model">school.product.category</field>
             <field name="arch" type="xml">
-                <kanban class="oe_background_grey o_kanban_dashboard o_hr_recruitment_kanban" create="false">
+                <kanban class="oe_background_grey o_kanban_dashboard o_snds_kanban" create="false">
                     <field name="name"/>
                     <field name="no_of_products"/>
                     <field name="color"/>
+                    <field name="description" />
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}">
@@ -487,10 +489,12 @@
                                 </div>
                                 <div class="container o_kanban_card_content">
                                     <div class="row">
-                                        <div class="col-6 ">
+                                        <div class="col-6 text-center">
                                             <button class="btn btn-primary" name="%(school_needs_action_view_group_by_products)d" type="action">
                                                 SCHOOL NEEDS
                                             </button>
+
+
                                         </div>
                                         <div class="col-6 text-center">
                                             <button class="btn btn-primary" name="%(school_product_action_view_readonly)d" type="action">
@@ -498,10 +502,10 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div name="kanban_boxes" class="row o_recruitment_kanban_boxes">
-                                        <div class="o_recruitment_kanban_box o_kanban_primary_bottom bottom_block" style="padding-left:8px;">
-                                            <div class="col-12">
-                                                No. of Items: <field name="no_of_products"/> <br/>
+                                    <div name="kanban_boxes" class="row o_snds_kanban_boxes">
+                                        <div class="o_snds_kanban_box o_kanban_primary_bottom bottom_block" style="padding-left:8px;">
+                                            <div class="col-xs-12">
+                                                No. of Items: <field name="no_of_products"/><br/>
                                                 No. of Needs: <field name="no_of_needs"/>
                                             </div>
                                         </div>

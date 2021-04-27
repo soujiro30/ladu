@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="snds assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/snds/static/src/scss/snds.scss"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

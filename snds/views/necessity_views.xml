@@ -504,10 +504,9 @@
                                     <div name="kanban_boxes" class="row o_snds_kanban_boxes">
                                         <div class="o_snds_kanban_box o_kanban_primary_bottom bottom_block" style="padding-left:8px;">
                                             <div class="col-6">
-                                                No. of Items: <field name="no_of_products"/><br/>
-                                                No. of Needs: <field name="no_of_needs"/>
+                                                No. of Needs: <field name="no_of_needs"/><br/>
+                                                No. of Items: <field name="no_of_products"/>
                                             </div>
-                                            <div class="col-6"></div>
                                         </div>
                                     </div>
                                 </div>

@@ -38,7 +38,7 @@ access_school_product_school,school.product.school,snds.model_school_product,snd
 access_school_product_category_base,school.product.category.base,snds.model_school_product_category,base.group_user,1,0,0,0
 access_school_product_category_contributor,school.product.category.contributor,snds.model_school_product_category,snds.group_snds_contributor,1,0,0,0
 access_school_product_category_user,school.product.category.user,snds.model_school_product_category,snds.group_snds_user,1,1,1,1
-access_school_product_category_ro,school.product.category.ro,snds.model_school_product,snds.group_snds_ro,1,1,1,0
+access_school_product_category_ro,school.product.category.ro,snds.model_school_product,snds.group_snds_ro,1,0,0,0
 access_school_product_category_sdo,school.product.category.sdo,snds.model_school_product,snds.group_snds_sdo,1,0,0,0
 access_school_product_category_school,school.product.category.school,snds.model_school_product,snds.group_snds_school,1,0,0,0
 access_stakeholder_project_base,stakeholder.project.base,snds.model_stakeholder_project,base.group_user,1,0,0,0

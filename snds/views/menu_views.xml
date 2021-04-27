@@ -97,6 +97,6 @@
 <!--                  sequence="8" action="school_product_action_view" groups="snds.group_snds_user,snds.group_snds_ro,snds.group_snds_sdo,snds.group_snds_school"/>-->
 
         <menuitem id="menu_snds_school_category_id" name="Categories" parent="menu_snds_configuration"
-                  sequence="8" action="school_product_category_action_view" groups="snds.group_snds_user,snds.group_snds_ro"/>
+                  sequence="8" action="school_product_category_action_view" groups="snds.group_snds_user"/>
     </data>
 </odoo>
